@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace NotifyMe.Tests
+namespace ValidateMe.Tests
 {
     [TestClass]
     public class ValidationsTests

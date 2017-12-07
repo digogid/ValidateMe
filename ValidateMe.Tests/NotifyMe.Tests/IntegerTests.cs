@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace NotifyMe.Tests
+namespace ValidateMe.Tests
 {
     [TestClass]
     public class IntegerTests
