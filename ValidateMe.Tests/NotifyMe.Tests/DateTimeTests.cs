@@ -85,7 +85,7 @@ namespace ValidateMe.Tests
             returned = testedDateTime.MustHasAtLeastDays(10);
             Assert.IsTrue(returned);
 
-            testedDateTime = new DateTime(2017, 11, 28, 18, 0, 0);
+            testedDateTime = new DateTime(2017, 12, 15, 18, 0, 0);
             returned = testedDateTime.MustHasUpToDays(10);
             Assert.IsTrue(returned);
         }

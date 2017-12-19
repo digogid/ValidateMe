@@ -136,7 +136,6 @@ namespace ValidateMe
             bool valid = !(@this.ToLower().Contains("<")
                         || @this.ToLower().Contains(">")
                         || @this.ToLower().Contains("script")
-                        || @this.ToLower().Contains("function")
                         || @this.ToLower().Contains("alert")
                         || @this.ToLower().Contains("insert ")
                         || @this.ToLower().Contains("update ")

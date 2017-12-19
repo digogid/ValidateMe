@@ -188,7 +188,7 @@ namespace ValidateMe.Tests
 
         [TestMethod]
         public void Must_ValidateNullableInt16()
-        {
+        { 
             short? testedInt = 1;
             var return1 = testedInt.MustBePositive();
 

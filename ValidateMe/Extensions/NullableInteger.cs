@@ -7,7 +7,9 @@ namespace ValidateMe
     {
         public static bool MustBePositive<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsInteger();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -17,7 +19,9 @@ namespace ValidateMe
         }
         public static bool MustBeNegative<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsInteger();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -27,12 +31,14 @@ namespace ValidateMe
         }
         public static bool MustBeZero<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
+            @this.IsInteger();
+
             if (@this is UInt64 || @this is UInt32 || @this is UInt16)
             {
                 return NullableUnassignedInteger.MustBeZero(@this, notify, propertyName);
             }
 
-            bool valid = @this.HasValue(notify, propertyName);
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -42,12 +48,14 @@ namespace ValidateMe
         }
         public static bool MustBeEven<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
+            @this.IsInteger();
+
             if (@this is UInt64 || @this is UInt32 || @this is UInt16)
             {
                 return NullableUnassignedInteger.MustBeEven(@this, notify, propertyName);
             }
 
-            bool valid = @this.HasValue(notify, propertyName);
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -57,12 +65,14 @@ namespace ValidateMe
         }
         public static bool MustBeOdd<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
+            @this.IsInteger();
+
             if (@this is UInt64 || @this is UInt32 || @this is UInt16)
             {
                 return NullableUnassignedInteger.MustBeOdd(@this, notify, propertyName);
             }
 
-            bool valid = @this.HasValue(notify, propertyName);
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -72,7 +82,9 @@ namespace ValidateMe
         }
         public static bool MustBeEqual<T>(this T? @this, long comparer, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsInteger();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -82,7 +94,9 @@ namespace ValidateMe
         }
         public static bool MustBeGreaterThan<T>(this T? @this, long comparer, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsInteger();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -92,7 +106,9 @@ namespace ValidateMe
         }
         public static bool MustBeSmallerThan<T>(this T? @this, long comparer, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsInteger();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -100,5 +116,7 @@ namespace ValidateMe
             long actualValue = Convert.ToInt64(@this.Value);
             return actualValue.MustBeSmallerThan(comparer, notify, propertyName);
         }
+        private static bool IsInteger(this object @this)
+            => @this is short || @this is int || @this is long ? true : throw new Exception("Integer was expected.");
     }
 }

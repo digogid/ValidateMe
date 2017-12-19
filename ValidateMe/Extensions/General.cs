@@ -8,7 +8,7 @@ namespace ValidateMe
 {
     public static class General
     {
-        public static bool HasValue<T>(this T? obj, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool MustHasValue<T>(this T? obj, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
             bool valid = obj.HasValue;
 

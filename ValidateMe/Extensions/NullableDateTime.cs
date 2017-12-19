@@ -7,7 +7,9 @@ namespace ValidateMe
     {
         public static bool MustBePast<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -18,7 +20,9 @@ namespace ValidateMe
 
         public static bool MustBeFuture<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -29,7 +33,9 @@ namespace ValidateMe
 
         public static bool MustBeToday<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -40,7 +46,9 @@ namespace ValidateMe
 
         public static bool MustBeYesterday<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -51,7 +59,9 @@ namespace ValidateMe
 
         public static bool MustBeTomorrow<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -62,7 +72,9 @@ namespace ValidateMe
 
         public static bool MustBeInLast365Days<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -73,7 +85,9 @@ namespace ValidateMe
 
         public static bool MustBeInNext365Days<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -84,7 +98,9 @@ namespace ValidateMe
 
         public static bool MustBeDawn<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -95,7 +111,9 @@ namespace ValidateMe
 
         public static bool MustBeMorning<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -106,7 +124,9 @@ namespace ValidateMe
 
         public static bool MustBeAfternoon<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -117,7 +137,9 @@ namespace ValidateMe
 
         public static bool MustBeEvening<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -128,7 +150,9 @@ namespace ValidateMe
 
         public static bool MustBeLeapYear<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -139,7 +163,9 @@ namespace ValidateMe
 
         public static bool MustBeMoreRecentThan<T>(this T? @this, DateTime comparer, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -150,7 +176,9 @@ namespace ValidateMe
 
         public static bool MustBeOlderThan<T>(this T? @this, DateTime comparer, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -161,7 +189,9 @@ namespace ValidateMe
 
         public static bool MustBeWeekday<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -172,7 +202,9 @@ namespace ValidateMe
 
         public static bool MustBeWeekend<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -183,7 +215,9 @@ namespace ValidateMe
 
         public static bool MustHasAtLeastYears<T>(this T? @this, int years, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -194,7 +228,9 @@ namespace ValidateMe
 
         public static bool MustHasUpToYears<T>(this T? @this, int years, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -205,7 +241,9 @@ namespace ValidateMe
 
         public static bool MustHasAtLeastDays<T>(this T? @this, int days, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -216,7 +254,9 @@ namespace ValidateMe
 
         public static bool MustHasUpToDays<T>(this T? @this, int days, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
-            bool valid = @this.HasValue(notify, propertyName);
+            @this.IsDateTime();
+
+            bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
                 return valid;
@@ -224,5 +264,9 @@ namespace ValidateMe
             DateTime actualValue = Convert.ToDateTime(@this.Value);
             return actualValue.MustHasUpToDays(days, notify, propertyName);
         }
+
+        private static bool IsDateTime(this object @this)
+            => @this is DateTime ? true : throw new Exception("DateTime was expected.");
+        
     }
 }
