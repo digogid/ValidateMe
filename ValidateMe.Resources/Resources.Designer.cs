@@ -133,6 +133,15 @@ namespace ValidateMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} was expected. Got {1} instead..
+        /// </summary>
+        public static string IncorrectType {
+            get {
+                return ResourceManager.GetString("IncorrectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} must be afternoon.
         /// </summary>
         public static string IsNotAfternoon {

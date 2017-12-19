@@ -33,11 +33,6 @@ namespace ValidateMe
         {
             @this.IsInteger();
 
-            if (@this is UInt64 || @this is UInt32 || @this is UInt16)
-            {
-                return NullableUnassignedInteger.MustBeZero(@this, notify, propertyName);
-            }
-
             bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
@@ -50,11 +45,6 @@ namespace ValidateMe
         {
             @this.IsInteger();
 
-            if (@this is UInt64 || @this is UInt32 || @this is UInt16)
-            {
-                return NullableUnassignedInteger.MustBeEven(@this, notify, propertyName);
-            }
-
             bool valid = @this.MustHasValue(notify, propertyName);
 
             if (!valid)
@@ -66,11 +56,6 @@ namespace ValidateMe
         public static bool MustBeOdd<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
         {
             @this.IsInteger();
-
-            if (@this is UInt64 || @this is UInt32 || @this is UInt16)
-            {
-                return NullableUnassignedInteger.MustBeOdd(@this, notify, propertyName);
-            }
 
             bool valid = @this.MustHasValue(notify, propertyName);
 
@@ -117,6 +102,6 @@ namespace ValidateMe
             return actualValue.MustBeSmallerThan(comparer, notify, propertyName);
         }
         private static bool IsInteger(this object @this)
-            => @this is short || @this is int || @this is long ? true : throw new Exception("Integer was expected.");
+            => @this is short || @this is int || @this is long ? true : throw new Exception(string.Format(Resources.Resources.IncorrectType, "Integer", @this.GetType().Name));
     }
 }

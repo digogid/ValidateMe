@@ -240,4 +240,7 @@
   <data name="IsNotZero" xml:space="preserve">
     <value>{0} must be zero</value>
   </data>
+  <data name="IncorrectType" xml:space="preserve">
+    <value>{0} was expected. Got {1} instead.</value>
+  </data>
 </root>

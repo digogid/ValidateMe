@@ -266,7 +266,7 @@ namespace ValidateMe
         }
 
         private static bool IsDateTime(this object @this)
-            => @this is DateTime ? true : throw new Exception("DateTime was expected.");
-        
+            => @this is DateTime ? true : throw new Exception(string.Format(Resources.Resources.IncorrectType, "DateTime", @this.GetType().Name));
+
     }
 }

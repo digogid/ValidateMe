@@ -240,4 +240,7 @@
   <data name="Misformatted" xml:space="preserve">
     <value>{0} não está bem formatado</value>
   </data>
+  <data name="IncorrectType" xml:space="preserve">
+    <value>{0} era esperado. Foi recebido {1} em seu lugar.</value>
+  </data>
 </root>

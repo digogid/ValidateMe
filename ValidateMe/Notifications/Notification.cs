@@ -13,7 +13,12 @@ namespace ValidateMe
             _errors = new List<Error>();
         }
 
-        public static void Add(Error error)
+        private static IReadOnlyList<string> Get()
+        {
+            return _errors.Select(e => e.Get()).ToList();
+        }
+
+        internal static void Add(Error error)
         {
             if (_errors == null)
                 Create();
@@ -47,11 +52,6 @@ namespace ValidateMe
         public static void Clear()
         {
             _errors.Clear();
-        }
-
-        private static IReadOnlyList<string> Get()
-        {
-            return _errors.Select(e => e.Get()).ToList();
         }
     }
 }

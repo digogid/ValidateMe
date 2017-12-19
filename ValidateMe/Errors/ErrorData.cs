@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ValidateMe.Errors
 {
-    public class ErrorData
+    internal class ErrorData
     {
 
         private readonly string _message;
