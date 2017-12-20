@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidateMe", "ValidateMe\ValidateMe.csproj", "{28A6765C-3F9A-4BE8-9DEC-3A314E9E34A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidateMe.Resources", "ValidateMe.Resources\ValidateMe.Resources.csproj", "{678268F2-529E-4AC9-B24C-B03B9161201A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidateMe.Tests", "ValidateMe.Tests\NotifyMe.Tests\ValidateMe.Tests.csproj", "{E738DB4F-62FB-4AF4-BBDF-CACD65BDE4E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{678268F2-529E-4AC9-B24C-B03B9161201A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{678268F2-529E-4AC9-B24C-B03B9161201A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{678268F2-529E-4AC9-B24C-B03B9161201A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E738DB4F-62FB-4AF4-BBDF-CACD65BDE4E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E738DB4F-62FB-4AF4-BBDF-CACD65BDE4E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E738DB4F-62FB-4AF4-BBDF-CACD65BDE4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E738DB4F-62FB-4AF4-BBDF-CACD65BDE4E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
