@@ -7,6 +7,13 @@ namespace ValidateMe
 {
     public static class String
     {
+        /// <summary>
+        /// Checks if string has value
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustHasValue(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = !string.IsNullOrWhiteSpace(@this);
@@ -17,6 +24,14 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string is greater than the specified length
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="length">Specified length</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeGreaterThan(this string @this, int length, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = @this.Length > length;
@@ -27,6 +42,14 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string is smaller than the specified length
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="length">Specified length</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeSmallerThan(this string @this, int length, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = @this.Length < length;
@@ -37,6 +60,14 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string has the exact required length
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="length">Required length</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeExactLength(this string @this, int length, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = @this.Length == length;
@@ -47,6 +78,13 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string contains only letters and white space
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeAlphabetic(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = Regex.IsMatch(@this, @"^\p{L}+(?: \p{L}+)*$");
@@ -57,6 +95,13 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string contains only numbers
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeNumeric(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = Regex.IsMatch(@this, @"^[0-9]+$");
@@ -67,6 +112,13 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string contains letters and numbers
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeAlphanumeric(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = Regex.IsMatch(@this, @"^[a-zA-Z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]+$");
@@ -77,6 +129,30 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string contains letters or numbers
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
+        public static bool MayBeAlphanumeric(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
+        {
+            bool valid = Regex.IsMatch(@this, @"^[a-zA-Z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]*$");
+
+            if (!valid && notify)
+                Notification.Add(Error.Create(ErrorData.IsNotAlphanumeric, propertyName));
+
+            return valid;
+        }
+
+        /// <summary>
+        /// Checks if string has any special character into it
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustContainSpecialCharacters(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = Regex.IsMatch(@this, @"[!@#$%^&*()_+\-=\[\]{};':""\\|,.<>\/?]+", RegexOptions.IgnoreCase);
@@ -87,6 +163,13 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string is a valid email
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeEmail(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = Regex.IsMatch(@this, @"\A[a-z0-9]+([-._][a-z0-9]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,4}\z")
@@ -98,6 +181,13 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string has value
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool IsWellFormatted(this string @this, string pattern, bool notify = true, [CallerMemberName]string propertyName = "")
         {
 
@@ -111,6 +201,13 @@ namespace ValidateMe
             return valid;
         }
 
+        /// <summary>
+        /// Checks if string is a Guid
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeGuid(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = Guid.TryParse(@this, out Guid guid);
@@ -121,16 +218,31 @@ namespace ValidateMe
             return valid;
         }
 
-        public static bool HasAtLeastWords(this string @this, int wordsCount, bool notify = true, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Checks if string has at least X words
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="X">Minimum words that string must have</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
+        public static bool HasAtLeastWords(this string @this, int X, bool notify = true, [CallerMemberName]string propertyName = "")
         {
-            bool valid = @this.Trim().Split(' ').Length >= wordsCount;
+            bool valid = @this.Trim().Split(' ').Length >= X;
 
             if (!valid && notify)
-                Notification.Add(Error.Create(ErrorData.HasNotMinimumWords, propertyName, wordsCount.ToString()));
+                Notification.Add(Error.Create(ErrorData.HasNotMinimumWords, propertyName, X.ToString()));
 
             return valid;
         }
 
+        /// <summary>
+        /// Checks if value matchs the safety criteria
+        /// </summary>
+        /// <param name="this">String to be validated</param>
+        /// <param name="notify">Tells the validation to create a notification message or not</param>
+        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
+        /// <returns>Returns true if the validation passes</returns>
         public static bool MustBeSafe(this string @this, bool notify = true, [CallerMemberName]string propertyName = "")
         {
             bool valid = !(@this.ToLower().Contains("<")

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ValidateMe.dll</id>
+    <version>1.0.0</version>
+    <title>ValidateMe</title>
+    <authors>Rodrigo GS Silva</authors>
+    <owners>Rodrigo GS Silva</owners>
+    <projectUrl>https://github.com/digogid/ValidateMe</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package with many domain validations.</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Validation Model Domain</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\netstandard2.0\ValidateMe.dll" target="lib\netstandard2.0" />
+    <file src="bin\Release\netstandard2.0\ValidateMe.Resources.dll" target="lib\netstandard2.0"/>
+	<file src="bin\Release\netstandard2.0\ValidateMe.Resources.dll" target="lib\netstandard2.0"/>
+	<file src="bin\Release\netstandard2.0\pt\ValidateMe.Resources.resources.dll" target="lib\netstandard2.0"/>
+  </files>
+</package>
