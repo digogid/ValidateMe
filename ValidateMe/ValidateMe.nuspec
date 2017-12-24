@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>ValidateMe.dll</id>
-    <version>1.0.0</version>
+    <id>ValidateMe</id>
+    <version>1.0.1</version>
     <title>ValidateMe</title>
     <authors>Rodrigo GS Silva</authors>
     <owners>Rodrigo GS Silva</owners>
@@ -14,9 +14,9 @@
     <tags>Validation Model Domain</tags>
   </metadata>
   <files>
-    <file src="bin\Release\netstandard2.0\ValidateMe.dll" target="lib\netstandard2.0" />
-    <file src="bin\Release\netstandard2.0\ValidateMe.Resources.dll" target="lib\netstandard2.0"/>
-	<file src="bin\Release\netstandard2.0\ValidateMe.Resources.dll" target="lib\netstandard2.0"/>
-	<file src="bin\Release\netstandard2.0\pt\ValidateMe.Resources.resources.dll" target="lib\netstandard2.0"/>
+    <file src="bin\Release\netstandard2.0\ValidateMe.dll" target="pkg\netstandard2.0" />
+    <file src="bin\Release\netstandard2.0\ValidateMe.Resources.dll" target="pkg\netstandard2.0"/>
+	<file src="bin\Release\netstandard2.0\ValidateMe.Resources.dll" target="pkg\netstandard2.0"/>
+	<file src="bin\Release\netstandard2.0\pt\ValidateMe.Resources.resources.dll" target="pkg\netstandard2.0"/>
   </files>
 </package>
