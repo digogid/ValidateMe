@@ -241,6 +241,9 @@
     <value>{0} must be zero</value>
   </data>
   <data name="IncorrectType" xml:space="preserve">
-    <value>{0} was expected. Got {1} instead.</value>
+    <value>{0} was expected. Got {1} instead</value>
+  </data>
+  <data name="NullValueReceived" xml:space="preserve">
+    <value>A value was expected but got null instead</value>
   </data>
 </root>

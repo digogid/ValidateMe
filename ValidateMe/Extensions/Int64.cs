@@ -8,140 +8,113 @@ namespace ValidateMe
         /// <summary>
         /// Checks if value is positive
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBePositive(this long @this, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsPositive(this long @this)
         {
-            bool valid = @this > 0;
+            return @this > 0;
+        }
 
-            if (!valid && notify)
+        public static void MustBePositive(this long @this, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsPositive())
                 Notification.Add(Error.Create(ErrorData.IsNotPositive, propertyName));
-
-            return valid;
         }
 
         /// <summary>
         /// Checks if value is negative
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeNegative(this long @this, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsNegative(this long @this)
         {
-            bool valid = @this < 0;
+            return @this < 0;
+        }
 
-            if (!valid && notify)
+        public static void MustBeNegative(this long @this, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsNegative())
                 Notification.Add(Error.Create(ErrorData.IsNotNegative, propertyName));
-
-            return valid;
         }
 
         /// <summary>
         /// Checks if value is zero
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeZero(this long @this, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsZero(this long @this)
         {
-            bool valid = @this == 0;
+            return @this == 0;
+        }
 
-            if (!valid && notify)
+        public static void MustBeZero(this long @this, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsZero())
                 Notification.Add(Error.Create(ErrorData.IsNotZero, propertyName));
-
-            return valid;
         }
 
         /// <summary>
         /// Checks if value is even
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeEven(this long @this, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsEven(this long @this)
         {
-            bool valid = @this % 2 == 0;
+            return @this % 2 == 0;
+        }
 
-            if (!valid && notify)
+        public static void MustBeEven(this long @this, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsEven())
                 Notification.Add(Error.Create(ErrorData.IsNotEven, propertyName));
-
-            return valid;
         }
 
         /// <summary>
         /// Checks if value is odd
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeOdd(this long @this, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsOdd(this long @this)
         {
-            bool valid = @this % 2 != 0;
+            return @this % 2 != 0;
+        }
 
-            if (!valid && notify)
+        public static void MustBeOdd(this long @this, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsOdd())
                 Notification.Add(Error.Create(ErrorData.IsNotOdd, propertyName));
-
-            return valid;
         }
 
         /// <summary>
         /// Checks if value is equal to X
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="X">Value to be compared</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeEqual(this long @this, long X, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsEqualTo(this long @this, long X)
         {
-            bool valid = @this == X;
+            return @this == X;
+        }
 
-            if (!valid && notify)
+        public static void MustBeEqualTo(this long @this, long X, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsEqualTo(X))
                 Notification.Add(Error.Create(ErrorData.IsNotEqual, propertyName));
-
-            return valid;
         }
 
         /// <summary>
         /// Checks if value is greater than 'X parameter'
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="X">Value to be compared</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeGreaterThan(this long @this, long X, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsGreaterThan(this long @this, long X)
         {
-            bool valid = @this > X;
+            return @this > X;
+        }
 
-            if (!valid && notify)
+        public static void MustBeGreaterThan(this long @this, long X, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsGreaterThan(X))
                 Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName));
-
-            return valid;
         }
 
         /// <summary>
         /// Checks if value is smaller than 'X parameter'
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="X">Value to be compared</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeSmallerThan(this long @this, long X, bool notify = true, [CallerMemberName]string propertyName = "")
+        public static bool IsSmallerThan(this long @this, long X)
         {
-            bool valid = @this < X;
-
-            if (!valid && notify)
+            return @this < X;
+        }
+        
+        public static void MustBeSmallerThan(this long @this, long X, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsSmallerThan(X))
                 Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName));
-
-            return valid;
         }
     }
 }

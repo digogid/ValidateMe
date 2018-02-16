@@ -17,7 +17,7 @@ namespace ValidateMe
             string _propertyName = obj.GetDisplayName(propertyName);
             _validations.Invoke(_propertyName);
 
-            return Notification.HasErrors();
+            return Notification.HasErrors;
         }
     }
 }

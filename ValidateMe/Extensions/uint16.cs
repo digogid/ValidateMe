@@ -2,7 +2,7 @@
 
 namespace ValidateMe
 {
-    public static class uint16
+    internal static class uint16
     {
         /// <summary>
         /// Checks if value is zero

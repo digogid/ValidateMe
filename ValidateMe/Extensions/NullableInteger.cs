@@ -6,174 +6,193 @@ namespace ValidateMe
     public static class NullableInteger
     {
         /// <summary>
+        /// Check if it is an integer (short, int or long) and has value
+        /// </summary>
+        internal static bool IsValidInteger<T>(this T? @this) where T : struct
+        {
+            return @this.IsInteger() && @this.ContainsValue();
+        }
+
+        /// <summary>
         /// Check if has value and if its value is positive
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBePositive<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsPositive<T>(this T? @this) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsPositive();
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBePositive(notify, propertyName);
+        public static void MustBePositive<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBePositive(propertyName);
+            }
         }
 
         /// <summary>
         /// Check if has value and if its value is negative
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeNegative<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsNegative<T>(this T? @this) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsNegative();
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBeNegative(notify, propertyName);
+        public static void MustBeNegative<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBeNegative(propertyName);
+            }
         }
 
         /// <summary>
         /// Check if has value and if its value is equal to zero
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeZero<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsZero<T>(this T? @this) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsZero();
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBeZero(notify, propertyName);
+        public static void MustBeZero<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBeZero(propertyName);
+            }
         }
 
         /// <summary>
         /// Check if has value and if its value is even
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeEven<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsEven<T>(this T? @this) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsEven();
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBeEven(notify, propertyName);
+        public static void MustBeEven<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBeEven(propertyName);
+            }
         }
 
         /// <summary>
         /// Check if has value and if its value is odd
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeOdd<T>(this T? @this, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsOdd<T>(this T? @this) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsOdd();
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBeOdd(notify, propertyName);
+        public static void MustBeOdd<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBeOdd(propertyName);
+            }
         }
 
         /// <summary>
-        /// Check if has value and if its value is equal to the 'X parameter'
+        /// Check if has value and if its value is equal to X
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="X">Value to be compared to</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeEqual<T>(this T? @this, long X, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsOdd<T>(this T? @this, long X) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsEqualTo(X);
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBeEqual(X, notify, propertyName);
+        public static void MustBeEqualTo<T>(this T? @this, long X, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBeEqualTo(X, propertyName);
+            }
         }
 
         /// <summary>
-        /// Check if has value and if its value is greater than the 'X parameter'
+        /// Check if has value and if its value is greater than X
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="X">Value to be compared to</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeGreaterThan<T>(this T? @this, long X, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsGreaterThan<T>(this T? @this, long X) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsGreaterThan(X);
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBeGreaterThan(X, notify, propertyName);
+        public static void MustBeGreaterThan<T>(this T? @this, long X, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBeGreaterThan(X, propertyName);
+            }
         }
 
         /// <summary>
-        /// Check if has value and if its value is smaller than the 'X parameter'
+        /// Check if has value and if its value is smaller than X
         /// </summary>
-        /// <param name="this">Value to be validated</param>
-        /// <param name="X">Value to be compared to</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static bool MustBeSmallerThan<T>(this T? @this, long X, bool notify = true, [CallerMemberName]string propertyName = "") where T : struct
+        public static bool IsSmallerThan<T>(this T? @this, long X) where T : struct
         {
-            @this.IsInteger();
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                return actualValue.IsSmallerThan(X);
+            }
+            return false;
+        }
 
-            bool valid = @this.MustHasValue(notify, propertyName);
-
-            if (!valid)
-                return valid;
-
-            long actualValue = Convert.ToInt64(@this.Value);
-            return actualValue.MustBeSmallerThan(X, notify, propertyName);
+        public static void MustBeSmallerThan<T>(this T? @this, long X, [CallerMemberName]string propertyName = "") where T : struct
+        {
+            if (@this.IsValidInteger())
+            {
+                long actualValue = Convert.ToInt64(@this.Value);
+                actualValue.MustBeSmallerThan(X, propertyName);
+            }
         }
 
         /// <summary>
         /// Check if the value passed is integer type (short, int or long)
         /// </summary>
-        /// <param name="this"></param>
-        /// <returns></returns>
         private static bool IsInteger(this object @this)
-            => @this is short || @this is int || @this is long ? true : throw new Exception(string.Format(Resources.Resources.IncorrectType, "Integer", @this.GetType().Name));
+            => @this is short || @this is int || @this is long ? true : throw new ArgumentException(string.Format(Resources.Resources.IncorrectType, "Integer", @this.GetType().Name));
     }
 }

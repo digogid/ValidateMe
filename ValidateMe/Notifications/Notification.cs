@@ -6,11 +6,33 @@ namespace ValidateMe
 {
     public static class Notification
     {
-        private static List<Error> _errors;
+        private static List<Error> _errors {
+            get
+            {
+                if (_errors == null)
+                    return new List<Error>();
+                return _errors;
+            }
+            set
+            {
+                _errors = value;
+            }
+        }
 
-        private static void Create()
+        public static int Count
         {
-            _errors = new List<Error>();
+            get
+            {
+                return _errors.Count();
+            }
+        }
+
+        public static bool HasErrors
+        {
+            get
+            {
+                return _errors.Any();
+            }
         }
 
         private static IReadOnlyList<string> Get()
@@ -20,9 +42,6 @@ namespace ValidateMe
 
         internal static void Add(Error error)
         {
-            if (_errors == null)
-                Create();
-
             _errors.Add(error);
         }
 
@@ -37,16 +56,6 @@ namespace ValidateMe
             Clear();
 
             return copyNotifications;
-        }
-
-        public static int Count()
-        {
-            return _errors.Count;
-        }
-
-        public static bool HasErrors()
-        {
-            return _errors.Any();
         }
 
         public static void Clear()

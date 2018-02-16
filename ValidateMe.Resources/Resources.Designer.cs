@@ -133,7 +133,7 @@ namespace ValidateMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} was expected. Got {1} instead..
+        ///   Looks up a localized string similar to {0} was expected. Got {1} instead.
         /// </summary>
         public static string IncorrectType {
             get {
@@ -435,6 +435,15 @@ namespace ValidateMe.Resources {
         public static string Misformatted {
             get {
                 return ResourceManager.GetString("Misformatted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A value was expected but got null instead.
+        /// </summary>
+        public static string NullValueReceived {
+            get {
+                return ResourceManager.GetString("NullValueReceived", resourceCulture);
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ValidateMe
 {
-    public static class uint64
+    internal static class uint64
     {
         /// <summary>
         /// Checks if value is zero
