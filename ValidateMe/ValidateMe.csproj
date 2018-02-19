@@ -5,20 +5,29 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-    <Version>1.0.1</Version>
-    <Description>Library to do domain validations. You can either receive some default error messages to show to user.</Description>
+    <Version>2.0.1</Version>
+    <Authors>Rodrigo GS Silva</Authors>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>Domain validations &amp; notifications</Description>
+    <PackageTags>Domain validation model</PackageTags>
+    <PackageReleaseNotes>Fixed null reference values;
+Created all "Is" prefixed validations;
+Refactor all "Must" prefixed validations;</PackageReleaseNotes>
+    <RepositoryUrl>www.github.com/digogid/validateme</RepositoryUrl>
+    <PackageId>ValidateMe.dll</PackageId>
+    <Company>Rodrigo GS Silva</Company>
+    <Copyright>Copyright 2017</Copyright>
+    <PackageProjectUrl>www.github.com/digogid/validateme</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="CredentialProvider.VSS.exe" />
-    <None Remove="EULA_Microsoft Visual Studio Team Services Credential Provider.docx" />
-    <None Remove="NuGet.exe" />
-    <None Remove="ThirdPartyNotices.txt" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\ValidateMe.xml</DocumentationFile>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />

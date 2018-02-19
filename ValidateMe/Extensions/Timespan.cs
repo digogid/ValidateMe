@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace ValidateMe
 {
-    public static class Timespan
+    internal static class Timespan
     {
         /// <summary>
         /// Check if the value is in the past
