@@ -41,7 +41,7 @@ namespace ValidateMe
 
         public static bool IsYesterday(this DateTime @this)
         {
-            return (DateTime.Now.AddDays(-1) - @this).Days == 0;
+            return (DateTime.Now.Date.AddDays(-1) - @this.Date).Days == 0;
         }
 
         public static void MustBeYesterday(this DateTime @this, [CallerMemberName]string propertyName = "")
@@ -52,7 +52,7 @@ namespace ValidateMe
 
         public static bool IsTomorrow(this DateTime @this)
         {
-            return (DateTime.Now.AddDays(1) - @this).Days == 0;
+            return (DateTime.Now.Date.AddDays(1) - @this.Date).Days == 0;
         }
 
         public static void MustBeTomorrow(this DateTime @this, [CallerMemberName]string propertyName = "")
@@ -63,7 +63,7 @@ namespace ValidateMe
 
         public static bool IsInLast365Days(this DateTime @this)
         {
-            return (DateTime.Now - @this).Days <= 365;
+            return (DateTime.Now - @this).Days <= 365 && (DateTime.Now - @this).Days > 0;
         }
 
         public static void MustBeInLast365Days(this DateTime @this, [CallerMemberName]string propertyName = "")
@@ -74,7 +74,7 @@ namespace ValidateMe
 
         public static bool IsInNext365Days(this DateTime @this)
         {
-            return (@this - DateTime.Now).Days <= 365;
+            return (@this - DateTime.Now).Days <= 365 && (@this - DateTime.Now).Days > 0;
         }
 
         public static void MustBeInNext365Days(this DateTime @this, [CallerMemberName]string propertyName = "")
@@ -146,7 +146,7 @@ namespace ValidateMe
         public static void MustBeMoreRecentThan(this DateTime @this, DateTime X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsMoreRecentThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotMoreRecentThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotMoreRecentThan, propertyName, X.ToLongDateString()));
         }
 
         public static bool IsOlderThan(this DateTime @this, DateTime X)
@@ -157,7 +157,7 @@ namespace ValidateMe
         public static void MustBeOlderThan(this DateTime @this, DateTime X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsOlderThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotOlderThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotOlderThan, propertyName, X.ToLongDateString()));
         }
 
         public static bool IsWeekday(this DateTime @this)

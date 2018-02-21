@@ -77,7 +77,7 @@ namespace ValidateMe
             return ((long)@this).IsEqualTo(X);
         }
 
-        public static void MustBeEqual(this int @this, int X, [CallerMemberName]string propertyName = "")
+        public static void MustBeEqualTo(this int @this, int X, [CallerMemberName]string propertyName = "")
         {
             ((long)@this).MustBeEqualTo(X, propertyName);
         }

@@ -2,6 +2,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace ValidateMe
 {
@@ -96,7 +97,8 @@ namespace ValidateMe
         /// </summary>
         public static bool IsAlphanumeric(this string @this)
         {
-            return Regex.IsMatch(@this, @"^[a-zA-Z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]+$");
+            string noSpacesThis = @this.Replace(" ", string.Empty);
+            return noSpacesThis.Any(char.IsLetter) && noSpacesThis.Any(char.IsDigit);
         }
 
         public static void MustBeAlphanumeric(this string @this, [CallerMemberName]string propertyName = "")
@@ -110,7 +112,8 @@ namespace ValidateMe
         /// </summary>
         public static bool CanBeAlphanumeric(this string @this)
         {
-            return Regex.IsMatch(@this, @"^[a-zA-Z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]*$");
+            string noSpacesThis = @this.Replace(" ", string.Empty);
+            return noSpacesThis.Any(char.IsLetter) || noSpacesThis.Any(char.IsDigit);
         }
 
         public static void MayBeAlphanumeric(this string @this, [CallerMemberName]string propertyName = "")
@@ -138,8 +141,8 @@ namespace ValidateMe
         /// </summary>
         public static bool IsEmail(this string @this)
         {
-            return Regex.IsMatch(@this, @"\A[a-z0-9]+([-._][a-z0-9]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,4}\z")
-                            && Regex.IsMatch(@this, @"^(?=.{1,64}@.{4,64}$)(?=.{6,100}$).*");
+            return Regex.IsMatch(@this.ToLower(), @"\A[a-z0-9]+([-._][a-z0-9]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,4}\z")
+                            && Regex.IsMatch(@this.ToLower(), @"^(?=.{1,64}@.{4,64}$)(?=.{6,100}$).*");
         }
 
         public static void MustBeEmail(this string @this, [CallerMemberName]string propertyName = "")

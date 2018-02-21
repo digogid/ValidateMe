@@ -6,23 +6,13 @@ namespace ValidateMe
 {
     public static class Notification
     {
-        private static List<Error> _errors {
-            get
-            {
-                if (_errors == null)
-                    return new List<Error>();
-                return _errors;
-            }
-            set
-            {
-                _errors = value;
-            }
-        }
+        private static List<Error> _errors { get; set; }
 
         public static int Count
         {
             get
             {
+                if (_errors == null) return 0;
                 return _errors.Count();
             }
         }
@@ -31,17 +21,20 @@ namespace ValidateMe
         {
             get
             {
+                if (_errors == null) return false;
                 return _errors.Any();
             }
         }
 
         private static IReadOnlyList<string> Get()
         {
+            if (_errors == null) return null;
             return _errors.Select(e => e.Get()).ToList();
         }
 
         internal static void Add(Error error)
         {
+            if (_errors == null) _errors = new List<Error>();
             _errors.Add(error);
         }
 
@@ -60,7 +53,7 @@ namespace ValidateMe
 
         public static void Clear()
         {
-            _errors.Clear();
+            _errors = new List<Error>();
         }
     }
 }

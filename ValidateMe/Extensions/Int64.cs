@@ -86,7 +86,7 @@ namespace ValidateMe
         public static void MustBeEqualTo(this long @this, long X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsEqualTo(X))
-                Notification.Add(Error.Create(ErrorData.IsNotEqual, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotEqual, propertyName, X.ToString(), string.Empty));
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace ValidateMe
         public static void MustBeGreaterThan(this long @this, long X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsGreaterThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName, X.ToString(), string.Empty));
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace ValidateMe
         public static void MustBeSmallerThan(this long @this, long X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsSmallerThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName, X.ToString(), string.Empty));
         }
     }
 }
