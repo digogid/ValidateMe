@@ -16,10 +16,14 @@ namespace ValidateMe
             return !string.IsNullOrWhiteSpace(@this);
         }
 
-        public static void MustHasValue(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string has value. If not, create a notification message
+        /// </summary>
+        public static string MustHasValue(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.HasValue())
                 Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -30,10 +34,14 @@ namespace ValidateMe
             return @this.Length > length;
         }
 
-        public static void MustBeGreaterThan(this string @this, int length, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is greater than the specified length. If not, create a notification message
+        /// </summary>
+        public static string MustBeGreaterThan(this string @this, int length, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsGreaterThan(length))
                 Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName, length.ToString(), "characters"));
+            return @this;
         }
 
         /// <summary>
@@ -44,24 +52,32 @@ namespace ValidateMe
             return @this.Length < length;
         }
 
-        public static void MustBeSmallerThan(this string @this, int length, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is smaller than the specified length. If not, create a notification message
+        /// </summary>
+        public static string MustBeSmallerThan(this string @this, int length, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsSmallerThan(length))
                 Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName, length.ToString(), "characters"));
+            return @this;
         }
 
         /// <summary>
-        /// Checks if string has the exact required length
+        /// Checks if string has the exact length
         /// </summary>
         public static bool HasExactLength(this string @this, int length)
         {
             return @this.Length == length;
         }
 
-        public static void MustBeExactLength(this string @this, int length, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string has the exact length. If not, create a notification message
+        /// </summary>
+        public static string MustBeExactLength(this string @this, int length, [CallerMemberName]string propertyName = "")
         {
             if (!@this.HasExactLength(length))
                 Notification.Add(Error.Create(ErrorData.HasNotExactLength, propertyName, length.ToString()));
+            return @this;
         }
 
         /// <summary>
@@ -72,24 +88,32 @@ namespace ValidateMe
             return Regex.IsMatch(@this, @"^\p{L}+(?: \p{L}+)*$");
         }
 
-        public static void MustBeAlphabetic(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string contains only letters and white spaces. If not, create a notification message
+        /// </summary>
+        public static string MustBeAlphabetic(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsAlphabetic())
                 Notification.Add(Error.Create(ErrorData.IsNotAlphabetic, propertyName));
+            return @this;
         }
 
         /// <summary>
-        /// Checks if string contains only numbers
+        /// Checks if string contains only digits
         /// </summary>
         public static bool IsNumeric(this string @this)
         {
             return Regex.IsMatch(@this, @"^[0-9]+$");
         }
 
-        public static void MustBeNumeric(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string contains only digits. If not, create a notification message
+        /// </summary>
+        public static string MustBeNumeric(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsNumeric())
                 Notification.Add(Error.Create(ErrorData.IsNotNumeric, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -101,10 +125,14 @@ namespace ValidateMe
             return noSpacesThis.Any(char.IsLetter) && noSpacesThis.Any(char.IsDigit);
         }
 
-        public static void MustBeAlphanumeric(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is composed by letter and digits containing at least one letter and one digit. If not, create a notification message
+        /// </summary>
+        public static string MustBeAlphanumeric(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsAlphanumeric())
                 Notification.Add(Error.Create(ErrorData.IsNotAlphanumeric, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -116,24 +144,33 @@ namespace ValidateMe
             return noSpacesThis.Any(char.IsLetter) || noSpacesThis.Any(char.IsDigit);
         }
 
-        public static void MayBeAlphanumeric(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is composed by letter and/or digits only. If not, create a notification message
+        /// </summary>
+        /// <remarks>Could contain white spaces also</remarks>
+        public static string MayBeAlphanumeric(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.CanBeAlphanumeric())
                 Notification.Add(Error.Create(ErrorData.IsNotAlphanumeric, propertyName));
+            return @this;
         }
 
         /// <summary>
-        /// Checks if string has any special character into it
+        /// Checks if string has any special character
         /// </summary>
         public static bool ContainsSpecialCharacters(this string @this)
         {
             return Regex.IsMatch(@this, @"[!@#$%^&*()_+\-=\[\]{};':""\\|,.<>\/?]+", RegexOptions.IgnoreCase);
         }
 
-        public static void MustContainSpecialCharacters(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string contains any special characters. If not, create a notification message
+        /// </summary>
+        public static string MustContainSpecialCharacters(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.ContainsSpecialCharacters())
                 Notification.Add(Error.Create(ErrorData.HasNoSpecialCharacters, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -145,14 +182,18 @@ namespace ValidateMe
                             && Regex.IsMatch(@this.ToLower(), @"^(?=.{1,64}@.{4,64}$)(?=.{6,100}$).*");
         }
 
-        public static void MustBeEmail(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is a valid email. If not, create a notification message
+        /// </summary>
+        public static string MustBeEmail(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsEmail())
                 Notification.Add(Error.Create(ErrorData.IsNotEmail, propertyName));
+            return @this;
         }
 
         /// <summary>
-        /// Checks if string has value
+        /// Checks if string is well-formatted
         /// </summary>
         public static bool IsWellFormatted(this string @this, string pattern)
         {
@@ -162,10 +203,15 @@ namespace ValidateMe
             return Regex.IsMatch(@this, pattern);
         }
 
-        public static void MustBeFormatted(this string @this, string pattern, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is well-formatted. If not, create a notification message
+        /// </summary>
+        /// <param name="pattern">regex pattern</param>
+        public static string MustBeFormatted(this string @this, string pattern, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsWellFormatted(pattern))
                 Notification.Add(Error.Create(ErrorData.Misformatted, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -176,10 +222,14 @@ namespace ValidateMe
             return Guid.TryParse(@this, out _);
         }
 
-        public static void MustBeGuid(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is a Guid. If not, create a notification message
+        /// </summary>
+        public static string MustBeGuid(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsGuid())
                 Notification.Add(Error.Create(ErrorData.IsNotGuid, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -190,10 +240,14 @@ namespace ValidateMe
             return @this.Trim().Split(' ').Length >= X;
         }
 
-        public static void MustContainsAtLeastWords(this string @this, int X, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string contains at least X words. If not, create a notification message
+        /// </summary>
+        public static string MustContainsAtLeastWords(this string @this, int X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.ContainsAtLeastWords(X))
                 Notification.Add(Error.Create(ErrorData.HasNotMinimumWords, propertyName, X.ToString()));
+            return @this;
         }
 
         /// <summary>
@@ -216,10 +270,14 @@ namespace ValidateMe
                         );
         }
 
-        public static void MustBeSafe(this string @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that string is safe. If not, create a notification message
+        /// </summary>
+        public static string MustBeSafe(this string @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsSafe())
                 Notification.Add(Error.Create(ErrorData.IsNotSafe, propertyName));
+            return @this;
         }
     }
 }

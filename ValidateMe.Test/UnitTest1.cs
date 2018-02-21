@@ -187,6 +187,16 @@ namespace ValidateMe.Test
              */
             Notification.Clear();
         }
+
+        [TestMethod]
+        public void ValidateNullableIntValue()
+        {
+            var obj = new TestObject();
+            obj.NullIntValue = 999;
+            Assert.IsTrue(Notification.Count == 4);
+            // not zero, not even
+            Notification.Clear();
+        }
     }
 
     public class TestObject
@@ -199,17 +209,47 @@ namespace ValidateMe.Test
             {
                 Validator.SetValidations((_) =>
                 {
-                    value.MustBePositive();
-                    value.MustBeNegative();
-                    value.MustBeZero();
-                    value.MustBeEven();
-                    value.MustBeOdd();
-                    value.MustBeEqualTo(200);
-                    value.MustBeGreaterThan(100);
-                    value.MustBeSmallerThan(1000);
+                    value
+                        .MustBePositive()
+                        .MustBeNegative()
+                        .MustBeZero()
+                        .MustBeEven()
+                        .MustBeOdd()
+                        .MustBeEqualTo(200)
+                        .MustBeGreaterThan(100)
+                        .MustBeSmallerThan(1000)
+                        .MustBeSmallerOrEqualTo(1000)
+                        .MustBeGreaterOrEqualTo(100)
+                        .MustBeDifferentFrom(200);
                 });
                 if (this.CheckValidations())
                     _intValue = value;
+            }
+        }
+
+        private int? _nullIntValue;
+        public int? NullIntValue
+        {
+            get { return _intValue; }
+            set
+            {
+                Validator.SetValidations((_) =>
+                {
+                    value
+                        .MustBePositive()
+                        .MustBeNegative()
+                        .MustBeZero()
+                        .MustBeEven()
+                        .MustBeOdd()
+                        .MustBeEqualTo(999)
+                        .MustBeGreaterThan(997)
+                        .MustBeSmallerThan(1001)
+                        .MustBeSmallerOrEqualTo(1000)
+                        .MustBeGreaterOrEqualTo(998)
+                        .MustBeDifferentFrom(999);
+                });
+                if (this.CheckValidations())
+                    _nullIntValue = value;
             }
         }
 
@@ -253,26 +293,27 @@ namespace ValidateMe.Test
             {
                 Validator.SetValidations((_) =>
                 {
-                    value.MustBeAfternoon();
-                    value.MustBeDawn();
-                    value.MustBeEvening();
-                    value.MustBeMorning();
-                    value.MustBeFuture();
-                    value.MustBePast();
-                    value.MustBeInLast365Days();
-                    value.MustBeInNext365Days();
-                    value.MustBeLeapYear();
-                    value.MustBeMoreRecentThan(DateTime.Now);
-                    value.MustBeOlderThan(DateTime.Now);
-                    value.MustBeToday();
-                    value.MustBeTomorrow();
-                    value.MustBeWeekday();
-                    value.MustBeWeekend();
-                    value.MustBeYesterday();
-                    value.MustHasAtLeastDays(10);
-                    value.MustHasUpToDays(10);
-                    value.MustHasAtLeastYears(2);
-                    value.MustHasUpToYears(2);
+                    value
+                        .MustBeAfternoon()
+                        .MustBeDawn()
+                        .MustBeEvening()
+                        .MustBeMorning()
+                        .MustBeFuture()
+                        .MustBePast()
+                        .MustBeInLast365Days()
+                        .MustBeInNext365Days()
+                        .MustBeLeapYear()
+                        .MustBeMoreRecentThan(DateTime.Now)
+                        .MustBeOlderThan(DateTime.Now)
+                        .MustBeToday()
+                        .MustBeTomorrow()
+                        .MustBeWeekday()
+                        .MustBeWeekend()
+                        .MustBeYesterday()
+                        .MustHasAtLeastDays(10)
+                        .MustHasUpToDays(10)
+                        .MustHasAtLeastYears(2)
+                        .MustHasUpToYears(2);
                 });
 
                 if (this.CheckValidations())

@@ -11,15 +11,12 @@ namespace ValidateMe
         /// <summary>
         /// Checks if a Nullable<T> has value.
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
         /// <param name="obj">value to be validated</param>
-        /// <param name="notify">Tells the validation to create a notification message or not</param>
-        /// <param name="propertyName">Name of the property. Default will get CallerMemberName</param>
-        /// <returns>Returns true if the validation passes</returns>
-        public static void MustHasValue<T>(this T? obj, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustHasValue<T>(this T? obj, [CallerMemberName]string propertyName = "") where T : struct
         {
             if (!obj.HasValue)
                 Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+            return obj;
         }
 
         internal static bool ContainsValue<T>(this T? obj) where T : struct

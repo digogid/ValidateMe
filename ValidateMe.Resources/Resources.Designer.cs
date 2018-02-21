@@ -178,6 +178,15 @@ namespace ValidateMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} must be diffrent from {1}.
+        /// </summary>
+        public static string IsNotDifferentFrom {
+            get {
+                return ResourceManager.GetString("IsNotDifferentFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is not a valid email.
         /// </summary>
         public static string IsNotEmail {
@@ -210,6 +219,15 @@ namespace ValidateMe.Resources {
         public static string IsNotEvening {
             get {
                 return ResourceManager.GetString("IsNotEvening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} must be greater or equal to {1}.
+        /// </summary>
+        public static string IsNotGreaterOrEqualTo {
+            get {
+                return ResourceManager.GetString("IsNotGreaterOrEqualTo", resourceCulture);
             }
         }
         
@@ -363,6 +381,15 @@ namespace ValidateMe.Resources {
         public static string IsNotSafe {
             get {
                 return ResourceManager.GetString("IsNotSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} must be smaller or equal to {1}.
+        /// </summary>
+        public static string IsNotSmallerOrEqualTo {
+            get {
+                return ResourceManager.GetString("IsNotSmallerOrEqualTo", resourceCulture);
             }
         }
         
