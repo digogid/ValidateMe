@@ -13,10 +13,14 @@ namespace ValidateMe
             return @this > 0;
         }
 
-        public static void MustBePositive(this long @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is positive. If not, create a notification message
+        /// </summary>
+        public static long MustBePositive(this long @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsPositive())
                 Notification.Add(Error.Create(ErrorData.IsNotPositive, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -27,10 +31,14 @@ namespace ValidateMe
             return @this < 0;
         }
 
-        public static void MustBeNegative(this long @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is negative. If not, create a notification message
+        /// </summary>
+        public static long MustBeNegative(this long @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsNegative())
                 Notification.Add(Error.Create(ErrorData.IsNotNegative, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -41,10 +49,14 @@ namespace ValidateMe
             return @this == 0;
         }
 
-        public static void MustBeZero(this long @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is zero. If not, create a notification message
+        /// </summary>
+        public static long MustBeZero(this long @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsZero())
                 Notification.Add(Error.Create(ErrorData.IsNotZero, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -55,10 +67,14 @@ namespace ValidateMe
             return @this % 2 == 0;
         }
 
-        public static void MustBeEven(this long @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is even. If not, create a notification message
+        /// </summary>
+        public static long MustBeEven(this long @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsEven())
                 Notification.Add(Error.Create(ErrorData.IsNotEven, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -69,10 +85,14 @@ namespace ValidateMe
             return @this % 2 != 0;
         }
 
-        public static void MustBeOdd(this long @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is odd. If not, create a notification message
+        /// </summary>
+        public static long MustBeOdd(this long @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsOdd())
                 Notification.Add(Error.Create(ErrorData.IsNotOdd, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -83,38 +103,104 @@ namespace ValidateMe
             return @this == X;
         }
 
-        public static void MustBeEqualTo(this long @this, long X, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is equals to X. If not, create a notification message
+        /// </summary>
+        public static long MustBeEqualTo(this long @this, long X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsEqualTo(X))
-                Notification.Add(Error.Create(ErrorData.IsNotEqual, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotEqual, propertyName, X.ToString(), string.Empty));
+            return @this;
         }
 
         /// <summary>
-        /// Checks if value is greater than 'X parameter'
+        /// Checks if value is greater than X
         /// </summary>
         public static bool IsGreaterThan(this long @this, long X)
         {
             return @this > X;
         }
 
-        public static void MustBeGreaterThan(this long @this, long X, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is greater than X. If not, create a notification message
+        /// </summary>
+        public static long MustBeGreaterThan(this long @this, long X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsGreaterThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName, X.ToString(), string.Empty));
+            return @this;
         }
 
         /// <summary>
-        /// Checks if value is smaller than 'X parameter'
+        /// Checks if value is smaller than X
         /// </summary>
         public static bool IsSmallerThan(this long @this, long X)
         {
             return @this < X;
         }
-        
-        public static void MustBeSmallerThan(this long @this, long X, [CallerMemberName]string propertyName = "")
+
+        /// <summary>
+        /// Ensure that value is smaller than X. If not, create a notification message
+        /// </summary>
+        public static long MustBeSmallerThan(this long @this, long X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsSmallerThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName, X.ToString(), string.Empty));
+            return @this;
+        }
+
+        /// <summary>
+        /// Checks if value is smaller or equal to X
+        /// </summary>
+        public static bool IsSmallerOrEqualTo(this long @this, long X)
+        {
+            return @this <= X;
+        }
+
+        /// <summary>
+        /// Ensure that value is smaller or equal to X. If not, create a notification message
+        /// </summary>
+        public static long MustBeSmallerOrEqualTo(this long @this, long X, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsSmallerOrEqualTo(X))
+                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName, X.ToString(), string.Empty));
+            return @this;
+        }
+
+        /// <summary>
+        /// Checks if value is greater or equal to X
+        /// </summary>
+        public static bool IsGreaterOrEqualTo(this long @this, long X)
+        {
+            return @this >= X;
+        }
+
+        /// <summary>
+        /// Ensure that value is greater or equal to X. If not, create a notification message
+        /// </summary>
+        public static long MustBeGreaterOrEqualTo(this long @this, long X, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsGreaterOrEqualTo(X))
+                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName, X.ToString(), string.Empty));
+            return @this;
+        }
+
+        /// <summary>
+        /// Checks if value is different from X
+        /// </summary>
+        public static bool IsDifferentFrom(this long @this, long X)
+        {
+            return @this != X;
+        }
+
+        /// <summary>
+        /// Ensure that value is different from X. If not, create a notification message
+        /// </summary>
+        public static long MustBeDifferentFrom(this long @this, long X, [CallerMemberName]string propertyName = "")
+        {
+            if (!@this.IsDifferentFrom(X))
+                Notification.Add(Error.Create(ErrorData.IsNotDifferentFrom, propertyName, X.ToString(), string.Empty));
+            return @this;
         }
     }
 }

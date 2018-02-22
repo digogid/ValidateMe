@@ -243,4 +243,13 @@
   <data name="IncorrectType" xml:space="preserve">
     <value>{0} era esperado. Foi recebido {1} em seu lugar.</value>
   </data>
+  <data name="IsNotDifferentFrom" xml:space="preserve">
+    <value>{0} deve ser diferente de  {1}</value>
+  </data>
+  <data name="IsNotGreaterOrEqualTo" xml:space="preserve">
+    <value>{0} deve ser maior ou igual a  {1}</value>
+  </data>
+  <data name="IsNotSmallerOrEqualTo" xml:space="preserve">
+    <value>{0} deve ser menor ou igual a {1}</value>
+  </data>
 </root>

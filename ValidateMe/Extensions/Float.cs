@@ -13,10 +13,14 @@ namespace ValidateMe
             return @this > 0;
         }
 
-        public static void MustBePositive(this float @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is a positive number. If not, create a message
+        /// </summary>
+        public static float MustBePositive(this float @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsPositive())
                 Notification.Add(Error.Create(ErrorData.IsNotPositive, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -27,10 +31,14 @@ namespace ValidateMe
             return @this < 0;
         }
 
-        public static void MustBeNegative(this float @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is a negative number. If not, create a message
+        /// </summary>
+        public static float MustBeNegative(this float @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsNegative())
                 Notification.Add(Error.Create(ErrorData.IsNotNegative, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -41,10 +49,14 @@ namespace ValidateMe
             return @this == 0;
         }
 
-        public static void MustBeZero(this float @this, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is zero. If not, create a message
+        /// </summary>
+        public static float MustBeZero(this float @this, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsZero())
                 Notification.Add(Error.Create(ErrorData.IsNotZero, propertyName));
+            return @this;
         }
 
         /// <summary>
@@ -55,10 +67,14 @@ namespace ValidateMe
             return @this == X;
         }
 
-        public static void MustBeEqualTo(this float @this, float X, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is equal to X. If not, create a message
+        /// </summary>
+        public static float MustBeEqualTo(this float @this, float X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsEqualTo(X))
-                Notification.Add(Error.Create(ErrorData.IsNotEqual, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotEqual, propertyName, X.ToString()));
+            return @this;
         }
 
         /// <summary>
@@ -69,10 +85,14 @@ namespace ValidateMe
             return @this > X;
         }
 
-        public static void MustBeGreaterThan(this float @this, float X, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is greater than X. If not, create a message
+        /// </summary>
+        public static float MustBeGreaterThan(this float @this, float X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsGreaterThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotGreaterThan, propertyName, X.ToString()));
+            return @this;
         }
 
         /// <summary>
@@ -83,10 +103,14 @@ namespace ValidateMe
             return @this < X;
         }
 
-        public static void MustBeSmallerThan(this float @this, float X, [CallerMemberName]string propertyName = "")
+        /// <summary>
+        /// Ensure that value is smaller than X. If not, create a message
+        /// </summary>
+        public static float MustBeSmallerThan(this float @this, float X, [CallerMemberName]string propertyName = "")
         {
             if (!@this.IsSmallerThan(X))
-                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName));
+                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName, X.ToString()));
+            return @this;
         }
     }
 }

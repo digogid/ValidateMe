@@ -246,4 +246,13 @@
   <data name="NullValueReceived" xml:space="preserve">
     <value>A value was expected but got null instead</value>
   </data>
+  <data name="IsNotDifferentFrom" xml:space="preserve">
+    <value>{0} must be diffrent from {1}</value>
+  </data>
+  <data name="IsNotGreaterOrEqualTo" xml:space="preserve">
+    <value>{0} must be greater or equal to {1}</value>
+  </data>
+  <data name="IsNotSmallerOrEqualTo" xml:space="preserve">
+    <value>{0} must be smaller or equal to {1}</value>
+  </data>
 </root>

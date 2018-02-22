@@ -1,38 +1,43 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using ValidateMe.Errors;
 
 namespace ValidateMe
 {
     public static class NullableDateTime
     {
-        /// <summary>
-        /// Check if it is a DateTime object and has value
-        /// </summary>
-        internal static bool IsValidDateTime<T>(this T? @this) where T : struct
-        {
-            return @this.IsDateTime() && @this.ContainsValue();
-        }
 
         /// <summary>
         /// Checks if has value and if its value is a past date.
         /// </summary>
         public static bool IsPast<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsPast();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsPast();
+                }
             }
             return false;
         }
 
-        public static void MustBePast<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBePast<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBePast(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBePast(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -40,21 +45,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsFuture<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsFuture();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsFuture();
+                }
             }
             return false;
         }
 
-        public static void MustBeFuture<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeFuture<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeFuture(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeFuture(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -62,20 +78,31 @@ namespace ValidateMe
         /// </summary>
         public static bool IsToday<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsToday();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsToday();
+                }
             }
             return false;
         }
-        public static void MustBeToday<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeToday<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeToday(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeToday(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -83,21 +110,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsYesterday<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsYesterday();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsYesterday();
+                }
             }
             return false;
         }
 
-        public static void MustBeYesterday<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeYesterday<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeYesterday(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeYesterday(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -105,21 +143,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsTomorrow<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsTomorrow();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsTomorrow();
+                }
             }
             return false;
         }
 
-        public static void MustBeTomorrow<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeTomorrow<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeTomorrow(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeTomorrow(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -127,21 +176,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsInLast365Days<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsInLast365Days();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsInLast365Days();
+                }
             }
             return false;
         }
 
-        public static void MustBeInLast365Days<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeInLast365Days<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeInLast365Days(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeInLast365Days(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -149,21 +209,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsInNext365Days<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsInNext365Days();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsInNext365Days();
+                }
             }
             return false;
         }
 
-        public static void MustBeInNext365Days<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeInNext365Days<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeInNext365Days(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeInNext365Days(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -171,21 +242,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsDawn<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsDawn();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsDawn();
+                }
             }
             return false;
         }
 
-        public static void MustBeDawn<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeDawn<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeDawn(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeDawn(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -193,21 +275,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsMorning<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsMorning();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsMorning();
+                }
             }
             return false;
         }
 
-        public static void MustBeMorning<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeMorning<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeMorning(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeMorning(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -215,21 +308,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsAfternoon<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsAfternoon();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsAfternoon();
+                }
             }
             return false;
         }
 
-        public static void MustBeAfternoon<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeAfternoon<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeAfternoon(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeAfternoon(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -237,21 +341,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsEvening<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsEvening();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsEvening();
+                }
             }
             return false;
         }
 
-        public static void MustBeEvening<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeEvening<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeEvening(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeEvening(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -259,21 +374,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsLeapYear<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsLeapYear();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsLeapYear();
+                }
             }
             return false;
         }
 
-        public static void MustBeLeapYear<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeLeapYear<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeLeapYear(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeLeapYear(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -281,21 +407,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsMoreRecentThan<T>(this T? @this, DateTime X) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsMoreRecentThan(X);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsMoreRecentThan(X);
+                }
             }
             return false;
         }
 
-        public static void MustBeMoreRecentThan<T>(this T? @this, DateTime X, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeMoreRecentThan<T>(this T? @this, DateTime X, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeMoreRecentThan(X, propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeMoreRecentThan(X, propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -303,21 +440,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsOlderThan<T>(this T? @this, DateTime X) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsOlderThan(X);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsOlderThan(X);
+                }
             }
             return false;
         }
 
-        public static void MustBeOlderThan<T>(this T? @this, DateTime X, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeOlderThan<T>(this T? @this, DateTime X, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeOlderThan(X, propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeOlderThan(X, propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -325,21 +473,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsWeekday<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsWeekday();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsWeekday();
+                }
             }
             return false;
         }
 
-        public static void MustBeWeekday<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeWeekday<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeWeekday(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeWeekday(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -347,21 +506,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsWeekend<T>(this T? @this) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsWeekend();
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsWeekend();
+                }
             }
             return false;
         }
 
-        public static void MustBeWeekend<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustBeWeekend<T>(this T? @this, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustBeWeekend(propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustBeWeekend(propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -369,21 +539,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsAtLeastYears<T>(this T? @this, int years) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsAtLeastYears(years);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsAtLeastYears(years);
+                }
             }
             return false;
         }
 
-        public static void MustHasAtLeastYears<T>(this T? @this, int years, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustHasAtLeastYears<T>(this T? @this, int years, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustHasAtLeastYears(years, propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustHasAtLeastYears(years, propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -391,21 +572,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsUpToYears<T>(this T? @this, int years) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsUpToYears(years);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsUpToYears(years);
+                }
             }
             return false;
         }
 
-        public static void MustHasUpToYears<T>(this T? @this, int years, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustHasUpToYears<T>(this T? @this, int years, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustHasUpToYears(years, propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustHasUpToYears(years, propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -413,21 +605,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsAtLeastDays<T>(this T? @this, int days) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsAtLeastDays(days);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsAtLeastDays(days);
+                }
             }
             return false;
         }
 
-        public static void MustHasAtLeastDays<T>(this T? @this, int days, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustHasAtLeastDays<T>(this T? @this, int days, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustHasAtLeastDays(days, propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustHasAtLeastDays(days, propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -435,21 +638,32 @@ namespace ValidateMe
         /// </summary>
         public static bool IsUpToDays<T>(this T? @this, int days) where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                return actualValue.IsUpToDays(days);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    return actualValue.IsUpToDays(days);
+                }
             }
             return false;
         }
 
-        public static void MustHasUpToDays<T>(this T? @this, int days, [CallerMemberName]string propertyName = "") where T : struct
+        public static T? MustHasUpToDays<T>(this T? @this, int days, [CallerMemberName]string propertyName = "") where T : struct
         {
-            if (@this.IsValidDateTime())
+            if (@this.IsNullOrDateTime())
             {
-                DateTime actualValue = Convert.ToDateTime(@this.Value);
-                actualValue.MustHasUpToDays(days, propertyName);
+                if (@this.HasValue)
+                {
+                    DateTime actualValue = Convert.ToDateTime(@this.Value);
+                    actualValue.MustHasUpToDays(days, propertyName);
+                }
+                else
+                {
+                    Notification.Add(Error.Create(ErrorData.HasNoValue, propertyName));
+                }
             }
+            return @this;
         }
 
         /// <summary>
@@ -457,7 +671,9 @@ namespace ValidateMe
         /// </summary>
         /// <param name="this">value to be checked</param>
         /// <returns>True if is DateTime</returns>
-        private static bool IsDateTime(this object @this)
-            => @this is DateTime ? true : throw new Exception(string.Format(Resources.Resources.IncorrectType, "DateTime", @this.GetType().Name));
+        private static bool IsNullOrDateTime(this object @this)
+            => @this is null ? true 
+                : @this is DateTime ? true 
+                    : throw new Exception(string.Format(Resources.Resources.IncorrectType, "DateTime", @this.GetType().Name));
     }
 }

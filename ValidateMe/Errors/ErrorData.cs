@@ -62,7 +62,9 @@ namespace ValidateMe.Errors
         public static readonly ErrorData IsNotEven = new ErrorData(1304, GetMessage("IsNotEven"));
         public static readonly ErrorData IsNotOdd = new ErrorData(1305, GetMessage("IsNotOdd"));
         public static readonly ErrorData IsNotEqual = new ErrorData(1306, GetMessage("IsNotEqual"));
-
+        public static readonly ErrorData IsNotSmallerOrEqualTo = new ErrorData(1307, GetMessage("IsNotSmallerOrEqualTo"));
+        public static readonly ErrorData IsNotGreaterOrEqualTo = new ErrorData(1308, GetMessage("IsNotGreaterOrEqualTo"));
+        public static readonly ErrorData IsNotDifferentFrom = new ErrorData(1309, GetMessage("IsNotDifferentFrom"));
 
         // TimeSpan error messages
         public static readonly ErrorData IsNotInLast24Hours = new ErrorData(1401, GetMessage("IsNotInLast24Hours"));
@@ -77,10 +79,10 @@ namespace ValidateMe.Errors
 
         private static string GetMessage(string messageTitle)
         {
-            if (Error._file == null)
+            if (Error.File == null)
                 return Resources.Resources.ResourceManager.GetString(messageTitle);
 
-            var lines = File.ReadLines(Error._file);
+            var lines = File.ReadLines(Error.File);
             foreach (var line in lines.Where(l => l.Contains(":")))
             {
                 string title = line.Split(':')[0].Replace("\"","").Trim();
