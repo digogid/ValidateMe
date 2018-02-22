@@ -6,6 +6,7 @@ namespace ValidateMe
     public static class Validator
     {
         private static Action<string> _validations;
+        private static Action _validationsDefault;
 
         /// <summary>
         /// Set all validations that a single property needs to pass to become valid
@@ -13,6 +14,11 @@ namespace ValidateMe
         public static void SetValidations(Action<string> validations)
         {
             _validations = validations;
+        }
+
+        public static void SetValidations(Action validations)
+        {
+            _validationsDefault = validations;
         }
 
         /// <summary>
@@ -25,8 +31,15 @@ namespace ValidateMe
         {
             try
             {
-                string _propertyName = obj.GetDisplayName(propertyName);
-                _validations.Invoke(_propertyName);
+                if (_validations != null)
+                {
+                    string _propertyName = obj.GetDisplayName(propertyName);
+                    _validations.Invoke(_propertyName);
+                }
+                else
+                {
+                    _validationsDefault.Invoke();
+                }
 
                 return !Notification.HasErrors;
             }

@@ -19,11 +19,6 @@ namespace ValidateMe
             return obj;
         }
 
-        internal static bool ContainsValue<T>(this T? obj) where T : struct
-        {
-            return obj.HasValue;
-        }
-
         /// <summary>
         /// Gets the name of property that will be checked.
         /// </summary>

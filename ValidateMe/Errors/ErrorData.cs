@@ -79,10 +79,10 @@ namespace ValidateMe.Errors
 
         private static string GetMessage(string messageTitle)
         {
-            if (Error._file == null)
+            if (Error.File == null)
                 return Resources.Resources.ResourceManager.GetString(messageTitle);
 
-            var lines = File.ReadLines(Error._file);
+            var lines = File.ReadLines(Error.File);
             foreach (var line in lines.Where(l => l.Contains(":")))
             {
                 string title = line.Split(':')[0].Replace("\"","").Trim();

@@ -34,8 +34,18 @@ namespace ValidateMe
 
         internal static void Add(Error error)
         {
-            if (_errors == null) _errors = new List<Error>();
-            _errors.Add(error);
+            if (_errors == null)
+                _errors = new List<Error>();
+
+            if (!HasSpecificError(error))
+                _errors.Add(error);
+        }
+
+        internal static bool HasSpecificError(Error error)
+        {
+            if (_errors == null)
+                return false;
+            return _errors.Any(x => x.Code == error.Code && x.Message == error.Message);
         }
 
         public static IReadOnlyList<string> Get(bool clearAfterGet = true)

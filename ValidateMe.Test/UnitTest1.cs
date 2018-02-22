@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using ValidateMe.Attributes;
 
 namespace ValidateMe.Test
 {
@@ -192,9 +193,141 @@ namespace ValidateMe.Test
         public void ValidateNullableIntValue()
         {
             var obj = new TestObject();
+            obj.NullIntValue = null;
+            Assert.IsTrue(Notification.Count == 1); // must has a value
+            Notification.Clear();
+
             obj.NullIntValue = 999;
-            Assert.IsTrue(Notification.Count == 4);
-            // not zero, not even
+            Assert.IsTrue(Notification.Count == 4); // not negative, not even, not zero, not different from 999
+            Notification.Clear();
+
+            obj.NullIntValue = 1000;
+            Assert.IsTrue(Notification.Count == 5); // not negative, not odd, not zero, not equals to 999, not smaller than 1000
+            Notification.Clear();
+
+            obj.NullIntValue = 997;
+            Assert.IsTrue(Notification.Count == 5); // not negative, not even, not zero, not equals to 999, not greater than 1000
+            Notification.Clear();
+
+            obj.NullIntValue = -1;
+            Assert.IsTrue(Notification.Count == 6); // not positive, not even, not zero, not equals to 999, not greater than 1000, not greater or equals to 1000
+            Notification.Clear();
+        }
+
+        [TestMethod]
+        public void ValidateNullableDateTimeValue()
+        {
+            var obj = new TestObject();
+            obj.NullDateTimeValue = null;
+            Assert.IsTrue(Notification.Count == 1); // must has a value
+            Notification.Clear();
+
+
+            obj.NullDateTimeValue = new DateTime(2017, 10, 2, 2, 0, 0, 0);
+            Assert.IsTrue(Notification.Count == 13);
+            /*
+            value.MustBeAfternoon(); NOK
+            value.MustBeDawn(); OK
+            value.MustBeEvening(); NOK
+            value.MustBeMorning(); NOK
+            value.MustBeFuture(); NOK
+            value.MustBePast(); OK
+            value.MustBeInLast365Days(); OK
+            value.MustBeInNext365Days(); NOK
+            value.MustBeLeapYear(); NOK
+            value.MustBeMoreRecentThan(DateTime.Now); nOK
+            value.MustBeOlderThan(DateTime.Now); OK
+            value.MustBeToday(); NOK
+            value.MustBeTomorrow(); NOK
+            value.MustBeWeekday(); OK
+            value.MustBeWeekend(); NOK
+            value.MustBeYesterday(); NOK
+            value.MustHasAtLeastDays(10); OK
+            value.MustHasUpToDays(10); NOK
+            value.MustHasAtLeastYears(2); OK
+            value.MustHasUpToYears(2); NOK
+             */
+            Notification.Clear();
+
+
+            obj.NullDateTimeValue = new DateTime(2018, 2, 12, 7, 0, 0, 0);
+            Assert.IsTrue(Notification.Count == 12);
+            /*
+            value.MustBeAfternoon(); NOK
+            value.MustBeDawn(); NOK
+            value.MustBeEvening(); NOK
+            value.MustBeMorning(); OK
+            value.MustBeFuture(); NOK
+            value.MustBePast(); OK
+            value.MustBeInLast365Days(); OK
+            value.MustBeInNext365Days(); NOK
+            value.MustBeLeapYear(); NOK
+            value.MustBeMoreRecentThan(DateTime.Now); NOK
+            value.MustBeOlderThan(DateTime.Now); OK
+            value.MustBeToday(); NOK
+            value.MustBeTomorrow(); NOK
+            value.MustBeWeekday(); OK
+            value.MustBeWeekend(); NOK
+            value.MustBeYesterday(); OK
+            value.MustHasAtLeastDays(10); NOK
+            value.MustHasUpToDays(10); OK
+            value.MustHasAtLeastYears(2); NOK
+            value.MustHasUpToYears(2); OK
+             */
+            Notification.Clear();
+
+
+            obj.NullDateTimeValue = DateTime.Now;
+            Assert.IsTrue(Notification.Count == 14);
+            /*
+            value.MustBeAfternoon(); N/OK
+            value.MustBeDawn(); N/OK
+            value.MustBeEvening(); N/OK
+            value.MustBeMorning(); N/OK
+            value.MustBeFuture(); NOK
+            value.MustBePast(); NOK
+            value.MustBeInLast365Days(); NOK
+            value.MustBeInNext365Days(); NOK
+            value.MustBeLeapYear(); N/OK
+            value.MustBeMoreRecentThan(DateTime.Now); NOK
+            value.MustBeOlderThan(DateTime.Now); OK
+            value.MustBeToday(); OK
+            value.MustBeTomorrow(); NOK
+            value.MustBeWeekday(); N/OK
+            value.MustBeWeekend(); N/OK
+            value.MustBeYesterday(); NOK
+            value.MustHasAtLeastDays(10); NOK
+            value.MustHasUpToDays(10); OK
+            value.MustHasAtLeastYears(2); NOK
+            value.MustHasUpToYears(2); OK
+             */
+            Notification.Clear();
+
+
+            obj.NullDateTimeValue = new DateTime(2030, 1, 1, 18, 0, 0);
+            Assert.IsTrue(Notification.Count == 14);
+            /*
+            value.MustBeAfternoon(); NOK
+            value.MustBeDawn(); NOK
+            value.MustBeEvening(); OK
+            value.MustBeMorning(); NOK
+            value.MustBeFuture(); OK
+            value.MustBePast(); NOK
+            value.MustBeInLast365Days(); NOK
+            value.MustBeInNext365Days(); NOK
+            value.MustBeLeapYear(); NOK
+            value.MustBeMoreRecentThan(DateTime.Now); OK
+            value.MustBeOlderThan(DateTime.Now); NOK
+            value.MustBeToday(); NOK
+            value.MustBeTomorrow(); NOK
+            value.MustBeWeekday(); N/OK
+            value.MustBeWeekend(); N/OK
+            value.MustBeYesterday(); NOK
+            value.MustHasAtLeastDays(10); OK
+            value.MustHasUpToDays(10); NOK
+            value.MustHasAtLeastYears(2); OK
+            value.MustHasUpToYears(2); NOK
+             */
             Notification.Clear();
         }
     }
@@ -207,7 +340,7 @@ namespace ValidateMe.Test
             get { return _intValue; }
             set
             {
-                Validator.SetValidations((_) =>
+                Validator.SetValidations(() =>
                 {
                     value
                         .MustBePositive()
@@ -227,31 +360,35 @@ namespace ValidateMe.Test
             }
         }
 
+        
         private int? _nullIntValue;
+        [CustomName("MyCustomPropertyName")]
         public int? NullIntValue
         {
-            get { return _intValue; }
+            get { return _nullIntValue; }
             set
             {
-                Validator.SetValidations((_) =>
+                Validator.SetValidations((name) =>
                 {
                     value
-                        .MustBePositive()
-                        .MustBeNegative()
-                        .MustBeZero()
-                        .MustBeEven()
-                        .MustBeOdd()
-                        .MustBeEqualTo(999)
-                        .MustBeGreaterThan(997)
-                        .MustBeSmallerThan(1001)
-                        .MustBeSmallerOrEqualTo(1000)
-                        .MustBeGreaterOrEqualTo(998)
-                        .MustBeDifferentFrom(999);
+                        .MustHasValue(name)
+                        .MustBePositive(name)
+                        .MustBeNegative(name)
+                        .MustBeZero(name)
+                        .MustBeEven(name)
+                        .MustBeOdd(name)
+                        .MustBeEqualTo(999, name)
+                        .MustBeGreaterThan(997, name)
+                        .MustBeSmallerThan(1000, name)
+                        .MustBeSmallerOrEqualTo(1000, name)
+                        .MustBeGreaterOrEqualTo(997, name)
+                        .MustBeDifferentFrom(999, name);
                 });
                 if (this.CheckValidations())
                     _nullIntValue = value;
             }
         }
+
 
         private string _stringValue;
         public string StringValue
@@ -259,28 +396,30 @@ namespace ValidateMe.Test
             get { return _stringValue; }
             set
             {
-                Validator.SetValidations((_) =>
+                Validator.SetValidations(() =>
                 {
-                    value.MayBeAlphanumeric();
-                    value.MustBeAlphanumeric();
-                    value.MustBeAlphabetic();
-                    value.MustBeEmail();
-                    value.MustBeExactLength(5);
-                    value.MustBeFormatted(@"^\p{L}+(?: \p{L}+)*$");
-                    value.MustBeGreaterThan(4);
-                    value.MustBeGuid();
-                    value.MustBeNumeric();
-                    value.MustBeSmallerThan(10);
-                    value.MustContainsAtLeastWords(2);
-                    value.MustContainSpecialCharacters();
-                    value.MustHasValue();
-                    value.MustBeSafe();
+                    value
+                        .MayBeAlphanumeric()
+                        .MustBeAlphanumeric()
+                        .MustBeAlphabetic()
+                        .MustBeEmail()
+                        .MustBeExactLength(5)
+                        .MustBeFormatted(@"^\p{L}+(?: \p{L}+)*$")
+                        .MustBeGreaterThan(4)
+                        .MustBeGuid()
+                        .MustBeNumeric()
+                        .MustBeSmallerThan(10)
+                        .MustContainsAtLeastWords(2)
+                        .MustContainSpecialCharacters()
+                        .MustHasValue()
+                        .MustBeSafe();
                 });
 
                 if (this.CheckValidations())
                     _stringValue = value;
             }
         }
+
 
         private DateTime _dateTimeValue;
         public DateTime DateTimeValue
@@ -291,7 +430,7 @@ namespace ValidateMe.Test
             }
             set
             {
-                Validator.SetValidations((_) =>
+                Validator.SetValidations(() =>
                 {
                     value
                         .MustBeAfternoon()
@@ -318,6 +457,46 @@ namespace ValidateMe.Test
 
                 if (this.CheckValidations())
                     _dateTimeValue = value;
+            }
+        }
+
+
+        private DateTime? _nullDateTimeValue;
+        public DateTime? NullDateTimeValue
+        {
+            get
+            {
+                return _nullDateTimeValue;
+            }
+            set
+            {
+                Validator.SetValidations(() =>
+                {
+                    value
+                        .MustBeAfternoon()
+                        .MustBeDawn()
+                        .MustBeEvening()
+                        .MustBeMorning()
+                        .MustBeFuture()
+                        .MustBePast()
+                        .MustBeInLast365Days()
+                        .MustBeInNext365Days()
+                        .MustBeLeapYear()
+                        .MustBeMoreRecentThan(DateTime.Now)
+                        .MustBeOlderThan(DateTime.Now)
+                        .MustBeToday()
+                        .MustBeTomorrow()
+                        .MustBeWeekday()
+                        .MustBeWeekend()
+                        .MustBeYesterday()
+                        .MustHasAtLeastDays(10)
+                        .MustHasUpToDays(10)
+                        .MustHasAtLeastYears(2)
+                        .MustHasUpToYears(2);
+                });
+
+                if (this.CheckValidations())
+                    _nullDateTimeValue = value;
             }
         }
     }

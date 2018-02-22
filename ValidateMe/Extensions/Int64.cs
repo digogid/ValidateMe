@@ -198,8 +198,8 @@ namespace ValidateMe
         /// </summary>
         public static long MustBeDifferentFrom(this long @this, long X, [CallerMemberName]string propertyName = "")
         {
-            if (!@this.IsSmallerOrEqualTo(X))
-                Notification.Add(Error.Create(ErrorData.IsNotSmallerThan, propertyName, X.ToString(), string.Empty));
+            if (!@this.IsDifferentFrom(X))
+                Notification.Add(Error.Create(ErrorData.IsNotDifferentFrom, propertyName, X.ToString(), string.Empty));
             return @this;
         }
     }
