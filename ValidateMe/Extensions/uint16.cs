@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace ValidateMe
+namespace ValidateMe.Lib
 {
     internal static class uint16
     {

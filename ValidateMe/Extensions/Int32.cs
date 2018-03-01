@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace ValidateMe
+namespace ValidateMe.Lib
 {
     public static class Int32
     {

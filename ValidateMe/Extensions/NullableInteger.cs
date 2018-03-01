@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using ValidateMe.Errors;
+using ValidateMe.Lib.Errors;
 
-namespace ValidateMe
+namespace ValidateMe.Lib
 {
     public static class NullableInteger
     {

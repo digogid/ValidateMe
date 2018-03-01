@@ -1,13 +1,16 @@
-﻿using ValidateMe.Errors;
+﻿using ValidateMe.Lib.Errors;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ValidateMe
+namespace ValidateMe.Lib
 {
     public static class Notification
     {
         private static List<Error> _errors { get; set; }
 
+        /// <summary>
+        /// How many errors have occurred
+        /// </summary>
         public static int Count
         {
             get
@@ -17,6 +20,9 @@ namespace ValidateMe
             }
         }
 
+        /// <summary>
+        /// Checks if any error occurred
+        /// </summary>
         public static bool HasErrors
         {
             get
@@ -48,6 +54,9 @@ namespace ValidateMe
             return _errors.Any(x => x.Code == error.Code && x.Message == error.Message);
         }
 
+        /// <summary>
+        /// Return a list of string for each error that has occurred
+        /// </summary>
         public static IReadOnlyList<string> Get(bool clearAfterGet = true)
         {
             if (!clearAfterGet)
@@ -61,6 +70,9 @@ namespace ValidateMe
             return copyNotifications;
         }
 
+        /// <summary>
+        /// Remove all error messages
+        /// </summary>
         public static void Clear()
         {
             _errors = new List<Error>();

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace ValidateMe.Errors
+namespace ValidateMe.Lib.Errors
 {
     internal class ErrorData
     {

@@ -1,7 +1,7 @@
-﻿using ValidateMe.Errors;
+﻿using ValidateMe.Lib.Errors;
 using System.Runtime.CompilerServices;
 
-namespace ValidateMe
+namespace ValidateMe.Lib
 {
     public static class Double
     {

@@ -1,12 +1,24 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using ValidateMe.Attributes;
+using ValidateMe.Lib;
+using ValidateMe.Lib.Attributes;
 
 namespace ValidateMe.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTest1 : IDisposable
     {
+
+        public UnitTest1()
+        {
+            Notification.Clear();
+        }
+
+        public void Dispose()
+        {
+            Notification.Clear();
+        }
+
         [TestMethod]
         public void ValidateIntValue()
         {
@@ -17,15 +29,15 @@ namespace ValidateMe.Test
             Notification.Clear();
 
             obj.intValue = 200;
-            Assert.IsTrue(Notification.Count == 3); // not odd, not negative, not zero, not equals to 200
+            Assert.IsTrue(Notification.Count == 4); // not odd, not negative, not zero, not different from 200
             Notification.Clear();
 
             obj.intValue = 99;
-            Assert.IsTrue(Notification.Count == 5); // not even, not greater than 100, not negative, not zero, not equals to 200
+            Assert.IsTrue(Notification.Count == 6); // not even, not greater than 100, not negative, not zero, not equals to 200
             Notification.Clear();
 
             obj.intValue = 1002;
-            Assert.IsTrue(Notification.Count == 5); // not smaller than 1000, not negative, not zero, not equals to 200, not odd
+            Assert.IsTrue(Notification.Count == 6); // not smaller than 1000, not negative, not zero, not equals to 200, not odd
             Notification.Clear();
 
             obj.intValue = 999;
@@ -33,15 +45,15 @@ namespace ValidateMe.Test
             Notification.Clear();
 
             obj.intValue = 1003;
-            Assert.IsTrue(Notification.Count == 5); // not even, not smaller than 1000, not negative, not zero, not equals to 200
+            Assert.IsTrue(Notification.Count == 6); // not even, not smaller than 1000, not negative, not zero, not equals to 200
             Notification.Clear();
 
             obj.intValue = -1;
-            Assert.IsTrue(Notification.Count == 5); // not even, not positive, not greater than 100, not zero, not equals to 200
+            Assert.IsTrue(Notification.Count == 6); // not even, not positive, not greater than 100, not zero, not equals to 200
             Notification.Clear();
 
             obj.intValue = 0;
-            Assert.IsTrue(Notification.Count == 5); // not odd, not positive, not negative, not greater than 100, not equals to 200
+            Assert.IsTrue(Notification.Count == 6); // not odd, not positive, not negative, not greater than 100, not equals to 200
             Notification.Clear();
         }
 
@@ -73,6 +85,90 @@ namespace ValidateMe.Test
             obj.StringValue = "Hello@World.com";
             Assert.IsTrue(Notification.Count == 8);
             // is not alphabetic only, is not alphanumeric, is not numeric only, misformatted, is not guid, has not exact length, is not smaller than 10, has not two words at least
+            Notification.Clear();
+
+            obj.StringNumericValue = "-10.00";
+            Assert.IsTrue(Notification.Count == 0);
+            Notification.Clear();
+
+            obj.StringNumericValue = "-10.00.";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "-10..00";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "-10,00";
+            Assert.IsTrue(Notification.Count == 0);
+            Notification.Clear();
+
+            obj.StringNumericValue = "--10,00";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "-10,00,";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "-10,,00";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "1234567890";
+            Assert.IsTrue(Notification.Count == 0);
+            Notification.Clear();
+
+            obj.StringNumericValue = "10.00";
+            Assert.IsTrue(Notification.Count == 0);
+            Notification.Clear();
+
+            obj.StringNumericValue = "10.00.";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "10..00";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "10,00";
+            Assert.IsTrue(Notification.Count == 0);
+            Notification.Clear();
+
+            obj.StringNumericValue = "10,00,";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "10,,00";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "+10.00";
+            Assert.IsTrue(Notification.Count == 0);
+            Notification.Clear();
+
+            obj.StringNumericValue = "+10.00.";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "+10..00";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "+10,00";
+            Assert.IsTrue(Notification.Count == 0);
+            Notification.Clear();
+
+            obj.StringNumericValue = "++10,00";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "+10,00,";
+            Assert.IsTrue(Notification.Count == 1);
+            Notification.Clear();
+
+            obj.StringNumericValue = "+10,,00";
+            Assert.IsTrue(Notification.Count == 1);
             Notification.Clear();
         }
 
@@ -108,7 +204,7 @@ namespace ValidateMe.Test
             Notification.Clear();
 
 
-            obj.DateTimeValue = new DateTime(2018, 2, 20, 7, 0, 0, 0);
+            obj.DateTimeValue = DateTime.Now.AddDays(-1);
             Assert.IsTrue(Notification.Count == 12);
             /*
             value.MustBeAfternoon(); NOK
@@ -250,7 +346,7 @@ namespace ValidateMe.Test
             Notification.Clear();
 
 
-            obj.NullDateTimeValue = new DateTime(2018, 2, 12, 7, 0, 0, 0);
+            obj.NullDateTimeValue = DateTime.Now.AddDays(-1);
             Assert.IsTrue(Notification.Count == 12);
             /*
             value.MustBeAfternoon(); NOK
@@ -417,6 +513,23 @@ namespace ValidateMe.Test
 
                 if (this.CheckValidations())
                     _stringValue = value;
+            }
+        }
+
+
+        private string _stringNumericValue;
+        public string StringNumericValue
+        {
+            get { return _stringNumericValue; }
+            set
+            {
+                Validator.SetValidations(() =>
+                {
+                    value.MustBeNumeric();
+                });
+
+                if (this.CheckValidations())
+                    _stringNumericValue = value;
             }
         }
 

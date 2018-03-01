@@ -1,10 +1,10 @@
-﻿using ValidateMe.Attributes;
-using ValidateMe.Errors;
+﻿using ValidateMe.Lib.Attributes;
+using ValidateMe.Lib.Errors;
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace ValidateMe
+namespace ValidateMe.Lib
 {
     public static class General
     {

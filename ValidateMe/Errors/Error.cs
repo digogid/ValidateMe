@@ -1,4 +1,4 @@
-﻿namespace ValidateMe.Errors
+﻿namespace ValidateMe.Lib.Errors
 {
     public class Error
     {
@@ -12,6 +12,9 @@
             Code = code;
         }
 
+        /// <summary>
+        /// Configures the json path to custom messages
+        /// </summary>
         public static void SetPath(string file)
         {
             File = file;

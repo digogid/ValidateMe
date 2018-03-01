@@ -1,10 +1,10 @@
-﻿using ValidateMe.Errors;
+﻿using ValidateMe.Lib.Errors;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Linq;
 
-namespace ValidateMe
+namespace ValidateMe.Lib
 {
     public static class String
     {
@@ -31,6 +31,7 @@ namespace ValidateMe
         /// </summary>
         public static bool IsGreaterThan(this string @this, int length)
         {
+            if (!@this.HasValue()) return false;
             return @this.Length > length;
         }
 
@@ -49,6 +50,7 @@ namespace ValidateMe
         /// </summary>
         public static bool IsSmallerThan(this string @this, int length)
         {
+            if (!@this.HasValue()) return false;
             return @this.Length < length;
         }
 
@@ -85,6 +87,7 @@ namespace ValidateMe
         /// </summary>
         public static bool IsAlphabetic(this string @this)
         {
+            if (!@this.HasValue()) return false;
             return Regex.IsMatch(@this, @"^\p{L}+(?: \p{L}+)*$");
         }
 
@@ -99,11 +102,18 @@ namespace ValidateMe
         }
 
         /// <summary>
-        /// Checks if string contains only digits
+        /// Checks if string is a valid number (integer, double or float)
         /// </summary>
         public static bool IsNumeric(this string @this)
         {
-            return Regex.IsMatch(@this, @"^[0-9]+$");
+            if (!@this.HasValue()) return false;
+            char firstChar = @this.First();
+            if (firstChar != '-' && firstChar != '+' && !char.IsDigit(firstChar))
+                return false;
+            if (@this.Count(x => x == ',') > 1 || @this.Count(x => x == '.') > 1)
+                return false;
+
+            return Regex.IsMatch(@this, @"^[-+]?[0-9]\d*(\.\d+)?$") || Regex.IsMatch(@this, @"^[-+]?[0-9]\d*(\,\d+)?$");
         }
 
         /// <summary>
@@ -117,12 +127,15 @@ namespace ValidateMe
         }
 
         /// <summary>
-        /// Checks if string contains letters and numbers
+        /// Checks if string contains letters and numbers. In this case, there must be at least one letter and one digit.
         /// </summary>
         public static bool IsAlphanumeric(this string @this)
         {
+            if (!@this.HasValue()) return false;
             string noSpacesThis = @this.Replace(" ", string.Empty);
-            return noSpacesThis.Any(char.IsLetter) && noSpacesThis.Any(char.IsDigit);
+            return noSpacesThis.All(x => char.IsLetter(x) || char.IsDigit(x)) 
+                && noSpacesThis.Count(x => char.IsDigit(x)) > 0
+                && noSpacesThis.Count(x => char.IsLetter(x)) > 0;
         }
 
         /// <summary>
@@ -140,8 +153,9 @@ namespace ValidateMe
         /// </summary>
         public static bool CanBeAlphanumeric(this string @this)
         {
+            if (!@this.HasValue()) return false;
             string noSpacesThis = @this.Replace(" ", string.Empty);
-            return noSpacesThis.Any(char.IsLetter) || noSpacesThis.Any(char.IsDigit);
+            return noSpacesThis.All(char.IsLetterOrDigit);
         }
 
         /// <summary>
@@ -160,6 +174,7 @@ namespace ValidateMe
         /// </summary>
         public static bool ContainsSpecialCharacters(this string @this)
         {
+            if (!@this.HasValue()) return false;
             return Regex.IsMatch(@this, @"[!@#$%^&*()_+\-=\[\]{};':""\\|,.<>\/?]+", RegexOptions.IgnoreCase);
         }
 
@@ -178,6 +193,7 @@ namespace ValidateMe
         /// </summary>
         public static bool IsEmail(this string @this)
         {
+            if (!@this.HasValue()) return false;
             return Regex.IsMatch(@this.ToLower(), @"\A[a-z0-9]+([-._][a-z0-9]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,4}\z")
                             && Regex.IsMatch(@this.ToLower(), @"^(?=.{1,64}@.{4,64}$)(?=.{6,100}$).*");
         }
@@ -197,6 +213,7 @@ namespace ValidateMe
         /// </summary>
         public static bool IsWellFormatted(this string @this, string pattern)
         {
+            if (!@this.HasValue()) return false;
             if (string.IsNullOrWhiteSpace(pattern))
                 return false;
 
@@ -219,6 +236,7 @@ namespace ValidateMe
         /// </summary>
         public static bool IsGuid(this string @this)
         {
+            if (!@this.HasValue()) return false;
             return Guid.TryParse(@this, out _);
         }
 
@@ -237,6 +255,7 @@ namespace ValidateMe
         /// </summary>
         public static bool ContainsAtLeastWords(this string @this, int X)
         {
+            if (!@this.HasValue()) return false;
             return @this.Trim().Split(' ').Length >= X;
         }
 
@@ -255,6 +274,7 @@ namespace ValidateMe
         /// </summary>
         public static bool IsSafe(this string @this)
         {
+            if (!@this.HasValue()) return false;
             return !(@this.ToLower().Contains("<")
                         || @this.ToLower().Contains(">")
                         || @this.ToLower().Contains("script")

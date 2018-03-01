@@ -1,21 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>ValidateMe.dll</id>
-    <version>2.0.0.2</version>
+    <id>ValidateMe.Lib</id>
+    <version>2.0.0.7</version>
     <authors>Rodrigo GS Silva</authors>
     <owners>Rodrigo GS Silva</owners>
+	<title>ValidateMe</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Domain validations &amp; notifications</description>
-    <releaseNotes>Fixed some bugs; Added new methods; Added summary;</releaseNotes>
+    <description>Extension lib containing domain validations and error notifications</description>
+    <releaseNotes>Changed the main namespace to ValidateMe.Lib
+	</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Domain validation model</tags>
     <repository url="www.github.com/digogid/validateme" />
   </metadata>
   <files>
-	<file src="D:\Projetos\ValidateMe\validateme\ValidateMe\bin\Release\netstandard2.0\pt\ValidateMe.Resources.resources.dll" target="lib\netstandard2.0" />
-	<file src="D:\Projetos\ValidateMe\validateme\ValidateMe\bin\Release\netstandard2.0\ValidateMe.Resources.dll" target="lib\netstandard2.0" />
-    <file src="D:\Projetos\ValidateMe\validateme\ValidateMe\bin\Release\netstandard2.0\ValidateMe.dll" target="lib\netstandard2.0" />
-    <file src="D:\Projetos\ValidateMe\validateme\ValidateMe\bin\Release\netstandard2.0\ValidateMe.xml" target="lib\netstandard2.0" />
+	<file src="bin\release\netstandard2.0\**" target="lib\netstandard2.0" />
   </files>
 </package>

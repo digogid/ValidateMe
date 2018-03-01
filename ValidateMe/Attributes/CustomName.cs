@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace ValidateMe.Attributes
+namespace ValidateMe.Lib.Attributes
 {
+    /// <summary>
+    /// Sets a custom property's name. Used to return a user-friendly name
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class CustomNameAttribute : Attribute
     {

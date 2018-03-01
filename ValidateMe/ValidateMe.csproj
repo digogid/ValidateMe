@@ -18,8 +18,8 @@ Refactor all "Must" prefixed validations;</PackageReleaseNotes>
     <Company>Rodrigo GS Silva</Company>
     <Copyright>Copyright 2017</Copyright>
     <PackageProjectUrl>www.github.com/digogid/validateme</PackageProjectUrl>
-    <AssemblyVersion>2.0.0.2</AssemblyVersion>
-    <FileVersion>2.0.0.2</FileVersion>
+    <AssemblyVersion>2.0.0.5</AssemblyVersion>
+    <FileVersion>2.0.0.5</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
